@@ -18,5 +18,58 @@
 				margin: 0;
 			}
 		}
+		ul,
+		ul li {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+		}
+		ul {
+			text-align: center;
+			li {
+				display: inline-block;
+				margin: 0 1rem;
+				list-style-type: none;
+				a {
+					font-size: 1.8rem;
+					line-height: 6.5rem;
+					vertical-align: middle;
+					color: black;
+					text-decoration: none;
+					text-transform: uppercase;
+					cursor: pointer;
+				}
+			}
+		}
+
+		.callToActions {
+			position: absolute;
+			right: 10px;
+			top: 50%;
+			transform: translateY(-50%);
+
+			ul li {
+				margin: 0;
+				padding: 0;
+			}
+			li {
+				display: inline-block;
+				margin-right: 1.5rem;
+				list-style-type: none;
+				&:last-child {
+					margin-right: 0;
+				}
+				a,
+				span {
+					font-size: 1.8rem;
+					line-height: 1;
+					vertical-align: middle;
+					color: black;
+					text-decoration: none;
+					text-transform: uppercase;
+					cursor: pointer;
+				}
+			}
+		}
 	}
 }
