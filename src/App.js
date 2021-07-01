@@ -1,9 +1,30 @@
+import { useState, useEffect } from "react";
 import "./default.scss";
-import { Homepage, Registration } from "./pages";
-import { Switch, Route } from "react-router-dom";
+import { Homepage, Registration, Login } from "./pages";
+import { Switch, Route, Redirect } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import HomepageLayout from "./layouts/HomepageLayout";
+import { auth, handleUserProfile } from "./firebase/utils";
 const App = () => {
+	const [currentUser, setCurrentUser] = useState(null);
+	useEffect(() => {
+		const unsubscribe = auth.onAuthStateChanged(async (userAuth) => {
+			if (userAuth) {
+				const userRef = await handleUserProfile(userAuth);
+				userRef.onSnapshot((snapshot) => {
+					setCurrentUser({
+						id: snapshot.id,
+						...snapshot.data(),
+					});
+				});
+			}
+			setCurrentUser(userAuth);
+		});
+		return () => {
+			unsubscribe();
+		};
+	}, []);
+
 	return (
 		<div className="App">
 			<Switch>
@@ -12,7 +33,7 @@ const App = () => {
 					path="/"
 					render={() => {
 						return (
-							<HomepageLayout>
+							<HomepageLayout currentUser={currentUser}>
 								<Homepage />
 							</HomepageLayout>
 						);
@@ -21,10 +42,22 @@ const App = () => {
 				<Route
 					path="/registration"
 					render={() => (
-						<MainLayout>
+						<MainLayout currentUser={currentUser}>
 							<Registration />
 						</MainLayout>
 					)}
+				/>
+				<Route
+					path="/login"
+					render={() =>
+						currentUser ? (
+							<Redirect to="/" />
+						) : (
+							<MainLayout currentUser={currentUser}>
+								<Login />
+							</MainLayout>
+						)
+					}
 				/>
 			</Switch>
 		</div>

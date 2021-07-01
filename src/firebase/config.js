@@ -1,4 +1,4 @@
-const firebaseConfig = {
+export const firebaseConfig = {
 	apiKey: "AIzaSyBARi2phHlfhdVmuLYIEVioIJLruXIMjnA",
 	authDomain: "ecomm-redux.firebaseapp.com",
 	projectId: "ecomm-redux",
