@@ -41,10 +41,11 @@ const App = () => {
 				/>
 				<Route
 					path="/registration"
-					render={() => (
+					render={() => (currentUser ? <Redirect to="/"/>: (
 						<MainLayout currentUser={currentUser}>
 							<Registration />
 						</MainLayout>
+					)
 					)}
 				/>
 				<Route

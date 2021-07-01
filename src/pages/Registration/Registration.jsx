@@ -1,11 +1,7 @@
 import "./Registration.scss";
-import { useState } from "react";
+import { SignUp } from "../../components";
 const Registration = () => {
-	return (
-		<div>
-			<h1>Registration Page</h1>
-		</div>
-	);
+	return <SignUp />;
 };
 
 export default Registration;
