@@ -3,12 +3,14 @@ import { useState } from "react";
 import { Button, FormInput } from "../Forms";
 import { handleUserProfile, auth } from "../../firebase/utils";
 import AuthWrapper from "../AuthWrapper/AuthWrapper";
+import { useHistory } from "react-router-dom";
 const SignUp = () => {
 	const [displayName, setDisplayName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [errors, setErrors] = useState([]);
+	const history = useHistory();
 	const resetForm = () => {
 		setDisplayName("");
 		setEmail("");
@@ -30,6 +32,7 @@ const SignUp = () => {
 			);
 			await handleUserProfile(user, { displayName });
 			resetForm();
+			history.push("/");
 		} catch (error) {
 			//console.log(error)
 		}

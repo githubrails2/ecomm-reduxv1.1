@@ -3,8 +3,9 @@ import { Button, FormInput } from "../Forms";
 import { auth, signInWithGoogle } from "../../firebase/utils";
 import { useState } from "react";
 import AuthWrapper from "../AuthWrapper/AuthWrapper";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 const SignIn = () => {
+	const history = useHistory();
 	const resetForm = () => {
 		setEmail("");
 		setPassword("");
@@ -14,6 +15,7 @@ const SignIn = () => {
 		try {
 			await auth.signInWithEmailAndPassword(email, password);
 			resetForm();
+			history.push("/");
 		} catch (error) {
 			console.log(error);
 		}

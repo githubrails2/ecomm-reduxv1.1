@@ -1,7 +1,10 @@
 import "./Header.scss";
 import { Link } from "react-router-dom";
 import { auth } from "../../firebase/utils";
-const Header = ({ currentUser }) => {
+import { selectCurrentUser } from "../../redux/slices/userSlice";
+import { useSelector } from "react-redux";
+const Header = () => {
+	const currentUser = useSelector(selectCurrentUser);
 	return (
 		<header className="header">
 			<div className="wrap">
@@ -13,6 +16,9 @@ const Header = ({ currentUser }) => {
 				<div className="callToActions">
 					{currentUser && (
 						<ul>
+							<li>
+								<Link to="/dashboard">my account </Link>
+							</li>
 							<li>
 								<span onClick={() => auth.signOut()}>LogOut</span>
 							</li>
