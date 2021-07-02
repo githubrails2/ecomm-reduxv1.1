@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./default.scss";
-import { Homepage, Registration, Login } from "./pages";
+import { Homepage, Registration, Login, Recovery } from "./pages";
 import { Switch, Route, Redirect } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import HomepageLayout from "./layouts/HomepageLayout";
@@ -41,12 +41,15 @@ const App = () => {
 				/>
 				<Route
 					path="/registration"
-					render={() => (currentUser ? <Redirect to="/"/>: (
-						<MainLayout currentUser={currentUser}>
-							<Registration />
-						</MainLayout>
-					)
-					)}
+					render={() =>
+						currentUser ? (
+							<Redirect to="/" />
+						) : (
+							<MainLayout currentUser={currentUser}>
+								<Registration />
+							</MainLayout>
+						)
+					}
 				/>
 				<Route
 					path="/login"
@@ -59,6 +62,14 @@ const App = () => {
 							</MainLayout>
 						)
 					}
+				/>
+				<Route
+					path="/recovery"
+					render={() => (
+						<MainLayout>
+							<Recovery />
+						</MainLayout>
+					)}
 				/>
 			</Switch>
 		</div>
