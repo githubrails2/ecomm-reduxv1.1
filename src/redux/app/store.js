@@ -1,9 +1,5 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import userReducer from "../slices/userSlice";
-<<<<<<< HEAD
-=======
-//import logger from "redux-logger";
->>>>>>> main
 
 const addedmiddleware = [...getDefaultMiddleware()];
 export default configureStore({
