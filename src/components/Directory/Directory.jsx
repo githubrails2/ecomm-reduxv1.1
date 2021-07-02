@@ -6,10 +6,10 @@ const Directory = () => {
 		<div className="directory">
 			<div className="wrap">
 				<div className="item" style={{ backgroundImage: `url(${shopWomens})` }}>
-					<a href="">Shop Womens</a>
+					<a href="/">Shop Womens</a>
 				</div>
 				<div className="item" style={{ backgroundImage: `url(${shopMens})` }}>
-					<a href="">Shop Mens</a>
+					<a href="/">Shop Mens</a>
 				</div>
 			</div>
 		</div>

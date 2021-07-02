@@ -1,7 +1,11 @@
 import "./Header.scss";
 import { Link } from "react-router-dom";
 import { auth } from "../../firebase/utils";
-const Header = ({ currentUser }) => {
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../redux/slices/userSlice";
+const Header = () => {
+	const currentUser = useSelector(selectCurrentUser);
+
 	return (
 		<header className="header">
 			<div className="wrap">
