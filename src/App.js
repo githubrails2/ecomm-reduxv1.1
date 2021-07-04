@@ -8,6 +8,7 @@ import { auth, handleUserProfile } from "./firebase/utils";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "./redux/slices/userSlice";
 import WithAuth from "./HOC/WithAuth";
+
 const App = () => {
 	const dispatch = useDispatch();
 	useEffect(() => {
