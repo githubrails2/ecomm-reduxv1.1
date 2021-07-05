@@ -1,37 +1,43 @@
 import AuthWrapper from "../AuthWrapper/AuthWrapper";
 import "./EmailPassword.scss";
 import { Button, FormInput } from "../Forms";
-import { useState } from "react";
-import { auth } from "../../firebase/utils";
-import { useHistory } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { withRouter } from "react-router-dom";
+import {
+	resetAuthForms,
+	resetPassword,
+	selectResetPasswordStatus,
+} from "../../redux/slices/userSlice";
 
-const EmailPassword = () => {
+const EmailPassword = ({ history }) => {
 	const configAuthWrapper = {
 		headline: "Recover Password",
 	};
-
+	const dispatch = useDispatch();
+	const { resetPasswordSuccess, resetPasswordError } = useSelector(
+		selectResetPasswordStatus
+	);
 	const [email, setEmail] = useState("");
 	const [errors, setErrors] = useState([]);
-	const history = useHistory();
-	const handleSubmit = async (e) => {
+
+	const handleSubmit = (e) => {
 		e.preventDefault();
-		try {
-			const config = {
-				url: "http://localhost:3000/login",
-			};
-			await auth
-				.sendPasswordResetEmail(email, config)
-				.then(() => {
-					history.push("/login");
-				})
-				.catch(() => {
-					const err = ["Email not found or entered incorrectly"];
-					setErrors(err);
-				});
-		} catch (error) {
-			console.log(error);
-		}
+		dispatch(resetPassword({ email }));
 	};
+	useEffect(() => {
+		if (resetPasswordSuccess) {
+			dispatch(resetAuthForms());
+			history.push("/login");
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [resetPasswordSuccess]);
+
+	useEffect(() => {
+		if (Array.isArray(resetPasswordError) && resetPasswordError.length > 0) {
+			setErrors(resetPasswordError);
+		}
+	}, [resetPasswordError]);
 	return (
 		<AuthWrapper {...configAuthWrapper}>
 			<div className="formWrap">
@@ -57,4 +63,4 @@ const EmailPassword = () => {
 	);
 };
 
-export default EmailPassword;
+export default withRouter(EmailPassword);

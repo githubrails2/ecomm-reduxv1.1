@@ -1,16 +1,39 @@
 import "./SignUp.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, FormInput } from "../Forms";
-import { handleUserProfile, auth } from "../../firebase/utils";
+
 import AuthWrapper from "../AuthWrapper/AuthWrapper";
-import { useHistory } from "react-router-dom";
-const SignUp = () => {
+import { withRouter } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+	signUpUser,
+	selectSignUpStatus,
+	resetAuthForms,
+} from "../../redux/slices/userSlice";
+
+const SignUp = ({ history }) => {
+	const dispatch = useDispatch();
+	const { signUpSuccess, signUpError } = useSelector(selectSignUpStatus);
 	const [displayName, setDisplayName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [errors, setErrors] = useState([]);
-	const history = useHistory();
+	useEffect(() => {
+		if (signUpSuccess) {
+			resetForm();
+			dispatch(resetAuthForms());
+			history.push("/");
+		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [signUpSuccess]);
+	useEffect(() => {
+		if (Array.isArray(signUpError) && signUpError.length > 0) {
+			setErrors(signUpError);
+		}
+	}, [signUpError]);
+
 	const resetForm = () => {
 		setDisplayName("");
 		setEmail("");
@@ -18,24 +41,9 @@ const SignUp = () => {
 		setConfirmPassword("");
 		setErrors([]);
 	};
-	const handleFormSubmit = async (e) => {
+	const handleFormSubmit = (e) => {
 		e.preventDefault();
-		if (password !== confirmPassword) {
-			const err = ["Passwords don't match"];
-			setErrors(err);
-			return;
-		}
-		try {
-			const { user } = await auth.createUserWithEmailAndPassword(
-				email,
-				password
-			);
-			await handleUserProfile(user, { displayName });
-			resetForm();
-			history.push("/");
-		} catch (error) {
-			//console.log(error)
-		}
+		dispatch(signUpUser({ displayName, email, password, confirmPassword }));
 	};
 	const configAuthWrapper = {
 		headline: "Registration",
@@ -86,4 +94,4 @@ const SignUp = () => {
 	);
 };
 
-export default SignUp;
+export default withRouter(SignUp);

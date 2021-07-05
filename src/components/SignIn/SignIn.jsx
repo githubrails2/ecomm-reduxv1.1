@@ -1,27 +1,43 @@
+//react defined
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, withRouter } from "react-router-dom";
+//user defined
+import {
+	signInUser,
+	selectSignIn,
+	signInWithGoogle,
+	resetAuthForms,
+} from "../../redux/slices/userSlice";
 import "./Signin.scss";
 import { Button, FormInput } from "../Forms";
-import { auth, signInWithGoogle } from "../../firebase/utils";
-import { useState } from "react";
+
 import AuthWrapper from "../AuthWrapper/AuthWrapper";
-import { Link, useHistory } from "react-router-dom";
-const SignIn = () => {
-	const history = useHistory();
+
+const SignIn = ({ history }) => {
+	const dispatch = useDispatch();
+	const signInSuccess = useSelector(selectSignIn);
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	useEffect(() => {
+		if (signInSuccess) {
+			resetForm();
+			dispatch(resetAuthForms());
+			history.push("/");
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [signInSuccess]);
 	const resetForm = () => {
 		setEmail("");
 		setPassword("");
 	};
-	const handleSubmit = async (e) => {
+	const handleSubmit = (e) => {
 		e.preventDefault();
-		try {
-			await auth.signInWithEmailAndPassword(email, password);
-			resetForm();
-			history.push("/");
-		} catch (error) {
-			console.log(error);
-		}
+		dispatch(signInUser({ email, password }));
 	};
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+	const handleGoogleSignIn = () => {
+		dispatch(signInWithGoogle());
+	};
 	const configAuthWrapper = {
 		headline: "Login",
 	};
@@ -44,7 +60,7 @@ const SignIn = () => {
 					<Button type="submit">Login</Button>
 					<div className="socialSignIn">
 						<div className="row">
-							<Button onClick={signInWithGoogle}>Sign In with Google</Button>
+							<Button onClick={handleGoogleSignIn}>Sign In with Google</Button>
 						</div>
 					</div>
 					<div className="links">
@@ -56,4 +72,4 @@ const SignIn = () => {
 	);
 };
 
-export default SignIn;
+export default withRouter(SignIn);
