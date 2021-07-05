@@ -5,8 +5,8 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
 import {
-	resetAuthForms,
-	resetPassword,
+	resetUserState,
+	resetPasswordStart,
 	selectResetPasswordStatus,
 } from "../../redux/slices/userSlice";
 
@@ -15,7 +15,7 @@ const EmailPassword = ({ history }) => {
 		headline: "Recover Password",
 	};
 	const dispatch = useDispatch();
-	const { resetPasswordSuccess, resetPasswordError } = useSelector(
+	const { resetPasswordSuccess, userError } = useSelector(
 		selectResetPasswordStatus
 	);
 	const [email, setEmail] = useState("");
@@ -23,21 +23,21 @@ const EmailPassword = ({ history }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(resetPassword({ email }));
+		dispatch(resetPasswordStart({ email }));
 	};
 	useEffect(() => {
 		if (resetPasswordSuccess) {
-			dispatch(resetAuthForms());
+			dispatch(resetUserState());
 			history.push("/login");
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [resetPasswordSuccess]);
 
 	useEffect(() => {
-		if (Array.isArray(resetPasswordError) && resetPasswordError.length > 0) {
-			setErrors(resetPasswordError);
+		if (Array.isArray(userError) && userError.length > 0) {
+			setErrors(userError);
 		}
-	}, [resetPasswordError]);
+	}, [userError]);
 	return (
 		<AuthWrapper {...configAuthWrapper}>
 			<div className="formWrap">

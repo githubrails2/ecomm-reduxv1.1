@@ -4,31 +4,15 @@ import { Homepage, Registration, Login, Recovery, Dashboard } from "./pages";
 import { Switch, Route } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import HomepageLayout from "./layouts/HomepageLayout";
-import { auth, handleUserProfile } from "./firebase/utils";
+import { checkUserSession } from "./redux/slices/userSlice";
 import { useDispatch } from "react-redux";
-import { setCurrentUser } from "./redux/slices/userSlice";
+
 import WithAuth from "./HOC/WithAuth";
 
 const App = () => {
 	const dispatch = useDispatch();
 	useEffect(() => {
-		const unsubscribe = auth.onAuthStateChanged(async (userAuth) => {
-			if (userAuth) {
-				const userRef = await handleUserProfile(userAuth);
-				userRef.onSnapshot((snapshot) => {
-					dispatch(
-						setCurrentUser({
-							id: snapshot.id,
-							...snapshot.data(),
-						})
-					);
-				});
-			}
-			dispatch(setCurrentUser(userAuth));
-		});
-		return () => {
-			unsubscribe();
-		};
+		dispatch(checkUserSession());
 	}, [dispatch]);
 
 	return (

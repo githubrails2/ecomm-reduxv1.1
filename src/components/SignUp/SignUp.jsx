@@ -6,33 +6,30 @@ import AuthWrapper from "../AuthWrapper/AuthWrapper";
 import { withRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-	signUpUser,
 	selectSignUpStatus,
-	resetAuthForms,
+	signUpUserStart,
 } from "../../redux/slices/userSlice";
 
 const SignUp = ({ history }) => {
 	const dispatch = useDispatch();
-	const { signUpSuccess, signUpError } = useSelector(selectSignUpStatus);
+	const { currentUser, userError } = useSelector(selectSignUpStatus);
 	const [displayName, setDisplayName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [errors, setErrors] = useState([]);
 	useEffect(() => {
-		if (signUpSuccess) {
+		if (currentUser) {
 			resetForm();
-			dispatch(resetAuthForms());
 			history.push("/");
 		}
-
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [signUpSuccess]);
+	}, [currentUser]);
 	useEffect(() => {
-		if (Array.isArray(signUpError) && signUpError.length > 0) {
-			setErrors(signUpError);
+		if (Array.isArray(userError) && userError.length > 0) {
+			setErrors(userError);
 		}
-	}, [signUpError]);
+	}, [userError]);
 
 	const resetForm = () => {
 		setDisplayName("");
@@ -43,7 +40,9 @@ const SignUp = ({ history }) => {
 	};
 	const handleFormSubmit = (e) => {
 		e.preventDefault();
-		dispatch(signUpUser({ displayName, email, password, confirmPassword }));
+		dispatch(
+			signUpUserStart({ displayName, email, password, confirmPassword })
+		);
 	};
 	const configAuthWrapper = {
 		headline: "Registration",

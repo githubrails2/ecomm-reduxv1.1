@@ -1,16 +1,23 @@
 import "./Header.scss";
 import { Link } from "react-router-dom";
-import { auth } from "../../firebase/utils";
-import { selectCurrentUser } from "../../redux/slices/userSlice";
-import { useSelector } from "react-redux";
+import {
+	selectCurrentUser,
+	signOutUserStart,
+} from "../../redux/slices/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import Logo from "../../assets/logo.png";
 const Header = () => {
 	const currentUser = useSelector(selectCurrentUser);
+	const dispatch = useDispatch();
+	const handleSignOut = () => {
+		dispatch(signOutUserStart());
+	};
 	return (
 		<header className="header">
 			<div className="wrap">
 				<div className="logo">
 					<Link to="/">
-						<img src="" alt="Simple Tut" />
+						<img src={Logo} alt="Simple Tut" />
 					</Link>
 				</div>
 				<div className="callToActions">
@@ -20,7 +27,7 @@ const Header = () => {
 								<Link to="/dashboard">my account </Link>
 							</li>
 							<li>
-								<span onClick={() => auth.signOut()}>LogOut</span>
+								<span onClick={() => handleSignOut()}>LogOut</span>
 							</li>
 						</ul>
 					)}
