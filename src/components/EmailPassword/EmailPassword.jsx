@@ -3,14 +3,14 @@ import "./EmailPassword.scss";
 import { Button, FormInput } from "../Forms";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
 	resetUserState,
 	resetPasswordStart,
 	selectResetPasswordStatus,
 } from "../../redux/slices/userSlice";
 
-const EmailPassword = ({ history }) => {
+const EmailPassword = () => {
 	const configAuthWrapper = {
 		headline: "Recover Password",
 	};
@@ -20,7 +20,7 @@ const EmailPassword = ({ history }) => {
 	);
 	const [email, setEmail] = useState("");
 	const [errors, setErrors] = useState([]);
-
+	const history = useHistory();
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(resetPasswordStart({ email }));
@@ -63,4 +63,4 @@ const EmailPassword = ({ history }) => {
 	);
 };
 
-export default withRouter(EmailPassword);
+export default EmailPassword;

@@ -62,7 +62,6 @@ export const {
 	resetUserState,
 } = userSlice.actions;
 
-export const selectSignIn = ({ user }) => user.currentUser;
 export const selectCurrentUser = ({ user }) => user.currentUser;
 export const selectSignUpStatus = ({ user }) => ({
 	currentUser: user.currentUser,

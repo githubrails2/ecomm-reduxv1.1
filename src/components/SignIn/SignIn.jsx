@@ -1,22 +1,23 @@
 //react defined
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 //user defined
 import {
-	selectSignIn,
 	googleSignInStart,
 	emailSigninStart,
+	selectCurrentUser,
 } from "../../redux/slices/userSlice";
 import "./Signin.scss";
 import { Button, FormInput } from "../Forms";
 import AuthWrapper from "../AuthWrapper/AuthWrapper";
 
-const SignIn = ({ history }) => {
+const SignIn = () => {
 	const dispatch = useDispatch();
-	const currentUser = useSelector(selectSignIn);
+	const currentUser = useSelector(selectCurrentUser);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const history = useHistory();
 	useEffect(() => {
 		if (currentUser) {
 			resetForm();
@@ -69,4 +70,4 @@ const SignIn = ({ history }) => {
 	);
 };
 
-export default withRouter(SignIn);
+export default SignIn;

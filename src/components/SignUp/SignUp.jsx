@@ -3,14 +3,14 @@ import { useState, useEffect } from "react";
 import { Button, FormInput } from "../Forms";
 
 import AuthWrapper from "../AuthWrapper/AuthWrapper";
-import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	selectSignUpStatus,
 	signUpUserStart,
 } from "../../redux/slices/userSlice";
 
-const SignUp = ({ history }) => {
+const SignUp = () => {
 	const dispatch = useDispatch();
 	const { currentUser, userError } = useSelector(selectSignUpStatus);
 	const [displayName, setDisplayName] = useState("");
@@ -18,6 +18,7 @@ const SignUp = ({ history }) => {
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [errors, setErrors] = useState([]);
+	const history = useHistory();
 	useEffect(() => {
 		if (currentUser) {
 			resetForm();
@@ -93,4 +94,4 @@ const SignUp = ({ history }) => {
 	);
 };
 
-export default withRouter(SignUp);
+export default SignUp;
