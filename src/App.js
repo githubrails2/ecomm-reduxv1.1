@@ -1,12 +1,25 @@
+//react built functions
 import { useEffect } from "react";
-import "./default.scss";
-import { Homepage, Registration, Login, Recovery, Dashboard } from "./pages";
 import { Switch, Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+//layouts
 import MainLayout from "./layouts/MainLayout";
 import HomepageLayout from "./layouts/HomepageLayout";
+
+//pages for routes
+import { Homepage, Registration, Login, Recovery, Dashboard } from "./pages";
+
+//firebase helper functions
 import { auth, handleUserProfile } from "./firebase/utils";
-import { useDispatch } from "react-redux";
+
+//styles
+import "./default.scss";
+
+//redux selector
 import { setCurrentUser } from "./redux/slices/userSlice";
+
+//hoc
 import WithAuth from "./HOC/WithAuth";
 
 const App = () => {

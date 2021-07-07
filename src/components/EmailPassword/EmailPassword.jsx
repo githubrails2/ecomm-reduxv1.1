@@ -1,9 +1,18 @@
-import AuthWrapper from "../AuthWrapper/AuthWrapper";
-import "./EmailPassword.scss";
-import { Button, FormInput } from "../Forms";
+//react functions
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
+//auth Wrapper
+import AuthWrapper from "../AuthWrapper/AuthWrapper";
+
+//scss styles
+import "./EmailPassword.scss";
+
+//form components
+import { Button, FormInput } from "../Forms";
+
+//action types and selectors from slices
 import {
 	resetAuthForms,
 	resetPassword,
@@ -14,6 +23,7 @@ const EmailPassword = ({ history }) => {
 	const configAuthWrapper = {
 		headline: "Recover Password",
 	};
+	const history = useHistory();
 	const dispatch = useDispatch();
 	const { resetPasswordSuccess, resetPasswordError } = useSelector(
 		selectResetPasswordStatus
@@ -63,4 +73,4 @@ const EmailPassword = ({ history }) => {
 	);
 };
 
-export default withRouter(EmailPassword);
+export default EmailPassword;
