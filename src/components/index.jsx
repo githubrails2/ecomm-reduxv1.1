@@ -5,3 +5,6 @@ export { default as SignIn } from "./SignIn/SignIn";
 export { default as SignUp } from "./SignUp/SignUp";
 export { default as EmailPassword } from "./EmailPassword/EmailPassword";
 export { default as AdminToolbar } from "./AdminToolbar/AdminToolbar";
+export { default as Modal } from "./Modal/Modal";
+export { default as VerticalNav } from "./VerticalNav/VerticalNav";
+export { default as UserProfile } from "./UserProfile/UserProfile";

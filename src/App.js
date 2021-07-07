@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 
 import WithAuth from "./HOC/WithAuth";
 import WithAdminAuth from "./HOC/WithAdminAuth";
+import AdminLayout from "./layouts/AdminLayout";
 const App = () => {
 	const dispatch = useDispatch();
 	useEffect(() => {
@@ -76,9 +77,9 @@ const App = () => {
 					path="/admin"
 					render={() => (
 						<WithAdminAuth>
-							<MainLayout>
+							<AdminLayout>
 								<Admin />
-							</MainLayout>
+							</AdminLayout>
 						</WithAdminAuth>
 					)}
 				/>
