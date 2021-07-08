@@ -8,13 +8,12 @@ const productSlice = createSlice({
 	name: "products",
 	initialState,
 	reducers: {
-		addNewProductStart: (state, action) => {},
-		fetchProductsStart: (state, action) => {
-			console.log("FetchProductStart", action.payload);
+		addNewProductStart: (state, action) => {
+			state.products.push(action.payload);
 		},
+		fetchProductsStart: (state, action) => {},
 		setProducts: (state, action) => {
-			console.log("Set Products", action.payload);
-			state.products.shift(action.payload);
+			state.products = action.payload;
 		},
 	},
 });

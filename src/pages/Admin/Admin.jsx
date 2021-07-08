@@ -19,7 +19,7 @@ const Admin = () => {
 	//const [productDesc, setProductDesc] = useState("");
 	useEffect(() => {
 		dispatch(fetchProductsStart());
-	}, []);
+	}, [dispatch]);
 	const toggleModal = () => setHideModal(!hideModal);
 	const configModal = {
 		hideModal,

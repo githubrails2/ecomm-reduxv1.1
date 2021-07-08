@@ -13,7 +13,7 @@ export function* addProduct({
 	payload: { productCategory, productName, productThumbnail, productPrice },
 }) {
 	try {
-		const timestamp = new Date();
+		const timestamp = new Date().toLocaleDateString();
 		yield handleAddProduct({
 			productCategory,
 			productName,
