@@ -1,26 +1,14 @@
 import { takeLatest, put, all, call } from "redux-saga/effects";
 import {
-<<<<<<< HEAD
-	addNewProductStart,
-	deleteProductStart,
-	fetchProductsStart,
-	setProducts,
-} from "../slices/productSlice";
-import {
-	handleAddProduct,
-	handleDeleteProduct,
-	handleFetchProducts,
-=======
   addNewProductStart,
-  deleteProductsStart,
+  deleteProductStart,
   fetchProductsStart,
   setProducts,
 } from "../slices/productSlice";
 import {
   handleAddProduct,
-  handleDeleteProducts,
+  handleDeleteProduct,
   handleFetchProducts,
->>>>>>> c53b7e80e9114c2707533553469913af1efe6a1f
 } from "./helpers/product_saga.helpers";
 import { auth } from "../../firebase/utils";
 export function* addProduct({
@@ -41,18 +29,10 @@ export function* addProduct({
     //console.log(error)
   }
 }
-export function* fetchProducts() {
+export function* fetchProducts({payload: {filterType}}) {
   try {
-    const products = yield handleFetchProducts();
+    const products = yield handleFetchProducts({filterType});
     yield put(setProducts(products));
-  } catch (error) {
-    //console.log(error)
-  }
-}
-export function* deleteProduct({ payload }) {
-  try {
-    yield handleDeleteProducts(payload);
-    yield put(fetchProductsStart());
   } catch (error) {
     //console.log(error)
   }
@@ -63,31 +43,20 @@ export function* onFetchProductsStart() {
 export function* onAddNewProductStart() {
   yield takeLatest(addNewProductStart, addProduct);
 }
-export function* onDeleteProductStart() {
-  yield takeLatest(deleteProductsStart, deleteProduct);
-}
-<<<<<<< HEAD
+
 export function* deleteProduct(payload) {
-	try {
-		yield handleDeleteProduct(payload);
-		yield put(fetchProductsStart());
-	} catch (error) {}
+  try {
+    yield handleDeleteProduct(payload);
+    yield put(fetchProductsStart());
+  } catch (error) {}
 }
 export function* onDeleteProductStart() {
-	yield takeLatest(deleteProductStart, deleteProduct);
+  yield takeLatest(deleteProductStart, deleteProduct);
 }
-export default function* productSagas() {
-	yield all([
-		call(onAddNewProductStart),
-		call(onFetchProductsStart),
-		call(onDeleteProductStart),
-	]);
-=======
 export default function* productSagas() {
   yield all([
     call(onAddNewProductStart),
     call(onFetchProductsStart),
     call(onDeleteProductStart),
   ]);
->>>>>>> c53b7e80e9114c2707533553469913af1efe6a1f
 }

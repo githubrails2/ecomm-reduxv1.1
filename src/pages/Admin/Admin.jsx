@@ -2,17 +2,10 @@ import "./Admin.scss";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-<<<<<<< HEAD
 	addNewProductStart,
 	deleteProductStart,
 	fetchProductsStart,
 	selectProducts,
-=======
-  addNewProductStart,
-  deleteProductsStart,
-  fetchProductsStart,
-  selectProducts,
->>>>>>> c53b7e80e9114c2707533553469913af1efe6a1f
 } from "../../redux/slices/productSlice";
 import { FormInput, Button, FormSelect } from "../../components/Forms";
 import { Modal } from "../../components";
@@ -141,7 +134,6 @@ const Admin = () => {
                           documentID,
                         } = product;
 
-<<<<<<< HEAD
 												return (
 													<tr key={index}>
 														<td>
@@ -187,54 +179,6 @@ const Admin = () => {
 			</div>
 		</div>
 	);
-=======
-                        return (
-                          <tr key={index}>
-                            <td>
-                              <img
-                                className="thumb"
-                                src={productThumbnail}
-                                alt={productName}
-                              />
-                            </td>
-                            <td>{productName}</td>
-                            <td>£{productPrice}</td>
-                            <td>
-                              <Button
-                                onClick={() =>
-                                  dispatch(deleteProductsStart(documentID))
-                                }
-                              >
-                                Delete
-                              </Button>
-                            </td>
-                          </tr>
-                        );
-                      })}
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                <table border="0" cellPadding="10" cellSpacing="0">
-                  <tbody>
-                    <tr>
-                      {/*<td>{!isLastPage && <LoadMore {...configLoadMore} />}</td>*/}
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
->>>>>>> c53b7e80e9114c2707533553469913af1efe6a1f
 };
 
 export default Admin;
