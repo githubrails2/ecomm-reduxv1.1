@@ -33,3 +33,18 @@ export const handleFetchProducts = () => {
 			});
 	});
 };
+export const handleDeleteProduct = (documentID) => {
+	console.log("Helper", documentID);
+	return new Promise((resolve, reject) => {
+		firestore
+			.collection("products")
+			.doc(documentID.payload)
+			.delete()
+			.then(() => {
+				resolve();
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
+};

@@ -15,11 +15,16 @@ const productSlice = createSlice({
 		setProducts: (state, action) => {
 			state.products = action.payload;
 		},
+		deleteProductStart: (state, action) => {},
 	},
 });
 
-export const { addNewProductStart, fetchProductsStart, setProducts } =
-	productSlice.actions;
+export const {
+	addNewProductStart,
+	fetchProductsStart,
+	setProducts,
+	deleteProductStart,
+} = productSlice.actions;
 
 export const selectProducts = ({ productsData }) => productsData.products;
 export default productSlice.reducer;

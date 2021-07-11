@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	addNewProductStart,
+	deleteProductStart,
 	fetchProductsStart,
 	selectProducts,
 } from "../../redux/slices/productSlice";
@@ -142,14 +143,14 @@ const Admin = () => {
 															/>
 														</td>
 														<td>{productName}</td>
-														<td>£{productPrice}</td>
+														<td>&#x0024;{productPrice}</td>
 														<td>
-															{/*<Button
+															<Button
 																onClick={() =>
 																	dispatch(deleteProductStart(documentID))
 																}>
 																Delete
-															</Button>*/}
+															</Button>
 														</td>
 													</tr>
 												);
