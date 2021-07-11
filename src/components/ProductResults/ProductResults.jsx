@@ -1,10 +1,11 @@
-import "./Products.scss";
+import "./ProductResults.scss";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchProductsStart,
   selectProducts,
 } from "../../redux/slices/productSlice";
+import Product from "./Product/Product";
 const ProductResults = () => {
   const dispatch = useDispatch();
   const products = useSelector(selectProducts);
@@ -24,21 +25,25 @@ const ProductResults = () => {
 
   return (
     <div className="products">
-      {products.map((product, i) => {
-        const { productThumbnail, productName, productPrice } = product;
-        if (
-          !productThumbnail ||
-          !productName ||
-          typeof productPrice === "undefined"
-        )
-          return null;
-        return (
-          <div key={i}>
-            {productName}
-            {productPrice}
-          </div>
-        );
-      })}
+      <h1>Browse Products</h1>
+      <div className="productResults">
+        {products.map((product, i) => {
+          const { productThumbnail, productName, productPrice } = product;
+          if (
+            !productThumbnail ||
+            !productName ||
+            typeof productPrice === "undefined"
+          ) {
+            return null;
+          }
+          const configProduct = {
+            productThumbnail,
+            productName,
+            productPrice,
+          };
+          return <Product {...configProduct} />;
+        })}
+      </div>
     </div>
   );
 };
