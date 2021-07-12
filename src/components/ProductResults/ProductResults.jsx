@@ -7,21 +7,17 @@ import { useHistory, useParams } from "react-router-dom";
 import "./ProductResults.scss";
 import {
 	fetchProductsStart,
-	selectPage,
 	selectProducts,
-	selectQueryDoc,
 } from "../../redux/slices/productSlice";
 import Product from "./Product/Product";
 import { FormSelect } from "../Forms";
 import LoadMore from "../LoadMore/LoadMore";
 const ProductResults = () => {
 	const dispatch = useDispatch();
-	const data = useSelector(selectProducts);
+	const products = useSelector(selectProducts);
 	const history = useHistory();
 	const { filterType } = useParams();
-	const queryDoc = useSelector(selectQueryDoc);
-	const isLastPage = useSelector(selectPage);
-
+	const { data, queryDoc, isLastPage } = products;
 	useEffect(() => {
 		dispatch(fetchProductsStart({ filterType }));
 
@@ -39,7 +35,6 @@ const ProductResults = () => {
 	}
 	const handleFilter = (e) => {
 		let nextFilter = e.target.value;
-
 		history.push(`/search/${nextFilter}`);
 	};
 	const configFilter = {
@@ -58,10 +53,11 @@ const ProductResults = () => {
 		handleChange: handleFilter,
 	};
 	const handleLoadMore = () => {
+		console.log("handle Load More", filterType, queryDoc, data);
 		dispatch(
 			fetchProductsStart({
 				filterType,
-				startAfterdoc: queryDoc,
+				startAfterDoc: queryDoc,
 				persistProducts: data,
 			})
 		);

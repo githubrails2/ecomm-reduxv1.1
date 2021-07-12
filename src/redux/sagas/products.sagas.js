@@ -29,7 +29,7 @@ export function* addProduct({
 		//console.log(error)
 	}
 }
-export function* fetchProducts(payload) {
+export function* fetchProducts({ payload }) {
 	try {
 		const products = yield handleFetchProducts(payload);
 		yield put(setProducts(products));
