@@ -1,66 +1,51 @@
 import { firestore } from "../../../firebase/utils";
 
 export const handleAddProduct = (product) => {
-  return new Promise((resolve, reject) => {
-    firestore
-      .collection("products")
-      .doc()
-      .set(product)
-      .then(() => {
-        resolve();
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
+	return new Promise((resolve, reject) => {
+		firestore
+			.collection("products")
+			.doc()
+			.set(product)
+			.then(() => {
+				resolve();
+			})
+			.catch((err) => {
+				reject(err);
+			});
+	});
 };
 export const handleFetchProducts = ({ filterType }) => {
-  return new Promise((resolve, reject) => {
-    let ref = firestore.collection("products").orderBy("createdDate");
+	return new Promise((resolve, reject) => {
+		let ref = firestore.collection("products").orderBy("createdDate");
+		if (filterType) ref = ref.where("productCategory", "==", filterType);
+		ref
+			.get()
+			.then((snapshot) => {
+				const productsArray = snapshot.docs.map((doc) => {
+					return {
+						...doc.data(),
+						documentID: doc.id,
+					};
+				});
+				resolve(productsArray);
+			})
 
-    if (filterType) ref = ref.where("productCategory", "==", filterType);
-    ref
-      .get()
-      .then((snapshot) => {
-        const productsArray = snapshot.docs.map((doc) => {
-          return {
-            ...doc.data(),
-            documentID: doc.id,
-          };
-        });
-        resolve(productsArray);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
+			.catch((error) => {
+				reject(error);
+			});
+	});
 };
 export const handleDeleteProducts = (documentID) => {
-  return new Promise((resolve, reject) => {
-    firestore
-      .collection("products")
-      .doc(documentID)
-      .delete()
-      .then(() => {
-        resolve();
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-};
-export const handleDeleteProduct = (documentID) => {
-  console.log("Helper", documentID);
-  return new Promise((resolve, reject) => {
-    firestore
-      .collection("products")
-      .doc(documentID.payload)
-      .delete()
-      .then(() => {
-        resolve();
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
+	return new Promise((resolve, reject) => {
+		firestore
+			.collection("products")
+			.doc(documentID)
+			.delete()
+			.then(() => {
+				resolve();
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
 };
