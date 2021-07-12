@@ -7,16 +7,20 @@ import { useHistory, useParams } from "react-router-dom";
 import "./ProductResults.scss";
 import {
 	fetchProductsStart,
+	selectPage,
 	selectProducts,
+	selectQueryDoc,
 } from "../../redux/slices/productSlice";
 import Product from "./Product/Product";
 import { FormSelect } from "../Forms";
-
+import LoadMore from "../LoadMore/LoadMore";
 const ProductResults = () => {
 	const dispatch = useDispatch();
-	const products = useSelector(selectProducts);
+	const data = useSelector(selectProducts);
 	const history = useHistory();
 	const { filterType } = useParams();
+	const queryDoc = useSelector(selectQueryDoc);
+	const isLastPage = useSelector(selectPage);
 
 	useEffect(() => {
 		dispatch(fetchProductsStart({ filterType }));
@@ -24,9 +28,9 @@ const ProductResults = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [filterType]);
 
-	if (!Array.isArray(products)) return null;
+	if (!Array.isArray(data)) return null;
 
-	if (products.length < 1) {
+	if (data.length < 1) {
 		return (
 			<div className="products">
 				<p>No Results Found</p>
@@ -53,30 +57,42 @@ const ProductResults = () => {
 		],
 		handleChange: handleFilter,
 	};
+	const handleLoadMore = () => {
+		dispatch(
+			fetchProductsStart({
+				filterType,
+				startAfterdoc: queryDoc,
+				persistProducts: data,
+			})
+		);
+	};
+	const configLoadMore = {
+		onLoadMoreEvt: handleLoadMore,
+	};
 	return (
 		<div className="products">
 			<h1>Browse Products</h1>
 
 			<FormSelect {...configFilter} />
 			<div className="productResults">
-				{products &&
-					products.map((product, i) => {
-						const { productThumbnail, productName, productPrice } = product;
-						if (
-							!productThumbnail ||
-							!productName ||
-							typeof productPrice === "undefined"
-						) {
-							return null;
-						}
-						const configProduct = {
-							productThumbnail,
-							productName,
-							productPrice,
-						};
-						return <Product key={i} {...configProduct} />;
-					})}
+				{data.map((product, i) => {
+					const { productThumbnail, productName, productPrice } = product;
+					if (
+						!productThumbnail ||
+						!productName ||
+						typeof productPrice === "undefined"
+					) {
+						return null;
+					}
+					const configProduct = {
+						productThumbnail,
+						productName,
+						productPrice,
+					};
+					return <Product key={i} {...configProduct} />;
+				})}
 			</div>
+			{!isLastPage && <LoadMore {...configLoadMore} />}
 		</div>
 	);
 };
