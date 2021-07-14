@@ -1,4 +1,3 @@
-//import { useState } from "react";
 import "./Modal.scss";
 
 const Modal = ({ hideModal, toggleModal, children }) => {

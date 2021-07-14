@@ -10,6 +10,7 @@ import {
 import { FormInput, Button, FormSelect } from "../../components/Forms";
 import { Modal } from "../../components";
 import LoadMore from "../../components/LoadMore/LoadMore";
+import { CKEditor } from "ckeditor4-react";
 const Admin = () => {
 	const dispatch = useDispatch();
 	const products = useSelector(selectProducts);
@@ -18,7 +19,7 @@ const Admin = () => {
 	const [productName, setProductName] = useState("");
 	const [productThumbnail, setProductThumbnail] = useState("");
 	const [productPrice, setProductPrice] = useState(0);
-	//const [productDesc, setProductDesc] = useState("");
+	const [productDesc, setProductDesc] = useState("");
 	const { data, queryDoc, isLastPage } = products;
 	useEffect(() => {
 		dispatch(fetchProductsStart());
@@ -34,7 +35,7 @@ const Admin = () => {
 		setProductName("");
 		setProductThumbnail("");
 		setProductPrice(0);
-		//setProductDesc("");
+		setProductDesc("");
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -44,6 +45,7 @@ const Admin = () => {
 				productName,
 				productThumbnail,
 				productPrice,
+				productDesc,
 			})
 		);
 		resetForm();
@@ -112,7 +114,7 @@ const Admin = () => {
 							value={productPrice}
 							handleChange={(e) => setProductPrice(e.target.value)}
 						/>
-
+						<CKEditor onChange={(e) => setProductDesc(e.editor.getData())} />
 						<br />
 
 						<Button type="submit">Add product</Button>

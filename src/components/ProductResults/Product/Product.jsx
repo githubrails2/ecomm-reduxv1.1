@@ -1,39 +1,46 @@
 import "./Product.scss";
 import { Button } from "../../Forms";
-const Product = ({ productThumbnail, productName, productPrice }) => {
-  if (
-    !productThumbnail ||
-    !productName ||
-    typeof productPrice === "undefined"
-  ) {
-    return null;
-  }
-  const configAddToCartBtn = {
-    type: "button",
-  };
+import { Link } from "react-router-dom";
+const Product = (product) => {
+	const { documentID, productThumbnail, productName, productPrice } = product;
+	if (
+		!documentID ||
+		!productThumbnail ||
+		!productName ||
+		typeof productPrice === "undefined"
+	) {
+		return null;
+	}
+	const configAddToCartBtn = {
+		type: "button",
+	};
 
-  return (
-    <div className="product">
-      <div className="thumb">
-        <img src={productThumbnail} alt={productName} />
-      </div>
-      <div className="details">
-        <ul>
-          <li>
-            <span className="name">{productName}</span>
-          </li>
-          <li>
-            <span className="price">{productPrice}</span>
-          </li>
-          <li>
-            <div className="addToCart">
-              <Button {...configAddToCartBtn}>Add to Cart</Button>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  );
+	return (
+		<div className="product">
+			<div className="thumb">
+				<Link to={`/product/${documentID}`}>
+					<img src={productThumbnail} alt={productName} />
+				</Link>
+			</div>
+			<div className="details">
+				<ul>
+					<li>
+						<span className="name">
+							<Link to={`/product/${documentID}`}>{productName}</Link>
+						</span>
+					</li>
+					<li>
+						<span className="price">{productPrice}</span>
+					</li>
+					<li>
+						<div className="addToCart">
+							<Button {...configAddToCartBtn}>Add to Cart</Button>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	);
 };
 
 export default Product;

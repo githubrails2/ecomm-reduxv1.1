@@ -18,6 +18,7 @@ const ProductResults = () => {
 	const history = useHistory();
 	const { filterType } = useParams();
 	const { data, queryDoc, isLastPage } = products;
+
 	useEffect(() => {
 		dispatch(fetchProductsStart({ filterType }));
 
@@ -53,7 +54,6 @@ const ProductResults = () => {
 		handleChange: handleFilter,
 	};
 	const handleLoadMore = () => {
-		console.log("handle Load More", filterType, queryDoc, data);
 		dispatch(
 			fetchProductsStart({
 				filterType,
@@ -73,6 +73,7 @@ const ProductResults = () => {
 			<div className="productResults">
 				{data.map((product, i) => {
 					const { productThumbnail, productName, productPrice } = product;
+
 					if (
 						!productThumbnail ||
 						!productName ||
@@ -81,9 +82,7 @@ const ProductResults = () => {
 						return null;
 					}
 					const configProduct = {
-						productThumbnail,
-						productName,
-						productPrice,
+						...product,
 					};
 					return <Product key={i} {...configProduct} />;
 				})}
