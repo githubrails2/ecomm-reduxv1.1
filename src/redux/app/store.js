@@ -1,6 +1,7 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import userReducer from "../slices/userSlice";
 import productsReducer from "../slices/productSlice";
+import cartReducer from "../slices/cartSlice";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "../sagas/rootSaga";
 import logger from "redux-logger";
@@ -19,6 +20,7 @@ export default configureStore({
 	reducer: {
 		user: userReducer,
 		productsData: productsReducer,
+		cartData: cartReducer,
 	},
 	middleware: addedmiddleware,
 });

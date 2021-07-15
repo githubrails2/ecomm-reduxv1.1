@@ -6,6 +6,7 @@ import {
 	setProduct,
 	selectProductDetails,
 } from "../../redux/slices/productSlice";
+import { addToCart } from "../../redux/slices/cartSlice";
 import "./ProductCard.scss";
 import { Button } from "../Forms";
 const ProductCard = () => {
@@ -19,6 +20,10 @@ const ProductCard = () => {
 			dispatch(setProduct({}));
 		};
 	}, [dispatch, productID]);
+	const handleAddToCart = (product) => {
+		if (!product) return;
+		dispatch(addToCart(product));
+	};
 	const configAddToCartBtn = {
 		type: "button",
 	};
@@ -36,7 +41,7 @@ const ProductCard = () => {
 						<span>{productPrice}</span>
 					</li>
 					<li>
-						<div className="addToCart">
+						<div className="addToCart" onClick={() => handleAddToCart(product)}>
 							<Button {...configAddToCartBtn}>Add To Cart</Button>
 						</div>
 					</li>
