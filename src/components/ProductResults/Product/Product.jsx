@@ -1,11 +1,12 @@
 import "./Product.scss";
 import { Button } from "../../Forms";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/slices/cartSlice";
 const Product = (product) => {
 	const { documentID, productThumbnail, productName, productPrice } = product;
 	const dispatch = useDispatch();
+	const history = useHistory();
 	if (
 		!documentID ||
 		!productThumbnail ||
@@ -21,6 +22,7 @@ const Product = (product) => {
 		if (!product) return;
 
 		dispatch(addToCart(product));
+		history.push("/cart");
 	};
 	return (
 		<div className="product">

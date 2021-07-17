@@ -7,9 +7,11 @@ import {
 	selectProductDetails,
 } from "../../redux/slices/productSlice";
 import { addToCart } from "../../redux/slices/cartSlice";
+import { useHistory } from "react-router";
 import "./ProductCard.scss";
 import { Button } from "../Forms";
 const ProductCard = () => {
+	const history = useHistory();
 	const { productID } = useParams();
 	const product = useSelector(selectProductDetails);
 	const dispatch = useDispatch();
@@ -23,6 +25,7 @@ const ProductCard = () => {
 	const handleAddToCart = (product) => {
 		if (!product) return;
 		dispatch(addToCart(product));
+		history.push("/cart");
 	};
 	const configAddToCartBtn = {
 		type: "button",

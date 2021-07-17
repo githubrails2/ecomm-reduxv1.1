@@ -9,6 +9,7 @@ import {
 	Admin,
 	Search,
 	ProductDetails,
+	Cart,
 } from "./pages";
 import { AdminToolbar } from "./components";
 import { Switch, Route } from "react-router-dom";
@@ -63,6 +64,14 @@ const App = () => {
 					render={() => (
 						<MainLayout>
 							<ProductDetails />
+						</MainLayout>
+					)}
+				/>
+				<Route
+					path="/cart"
+					render={() => (
+						<MainLayout>
+							<Cart />
 						</MainLayout>
 					)}
 				/>

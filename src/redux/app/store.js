@@ -13,7 +13,6 @@ const addedmiddleware = [
 		},
 	}),
 	sagaMiddleware,
-	logger,
 ];
 
 export default configureStore({
