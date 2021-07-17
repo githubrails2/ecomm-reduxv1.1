@@ -8,6 +8,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import Logo from "../../assets/logo.png";
 import { selectCartItemsCount } from "../../redux/slices/cartSlice";
+import { Fragment } from "react";
 const Header = () => {
 	const currentUser = useSelector(selectCurrentUser);
 	const totalNumCartItems = useSelector(selectCartItemsCount);
@@ -40,23 +41,27 @@ const Header = () => {
 						<li>
 							<Link to="/cart">Your Cart ({totalNumCartItems})</Link>
 						</li>
-						{currentUser
-							? [
-									<li>
-										<Link to="/dashboard">my account </Link>
-									</li>,
-									<li>
-										<span onClick={() => handleSignOut()}>LogOut</span>
-									</li>,
-							  ]
-							: [
-									<li>
-										<Link to="/registration">Register</Link>
-									</li>,
-									<li>
-										<Link to="/login">Login</Link>
-									</li>,
-							  ]}
+						{currentUser ? (
+							<Fragment>
+								<li>
+									<Link to="/dashboard">my account </Link>
+								</li>
+
+								<li>
+									<span onClick={() => handleSignOut()}>LogOut</span>
+								</li>
+							</Fragment>
+						) : (
+							<Fragment>
+								<li>
+									<Link to="/registration">Register</Link>
+								</li>
+
+								<li>
+									<Link to="/login">Login</Link>
+								</li>
+							</Fragment>
+						)}
 					</ul>
 				</div>
 			</div>
