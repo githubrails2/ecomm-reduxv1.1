@@ -30,6 +30,9 @@ const cartSlice = createSlice({
 
 			state.cartItems = handleReduceCartItem(prevCart, itemtoReduce);
 		},
+		clearCart: (state, action) => {
+			state.cartItems = [];
+		}
 	},
 });
 export const selectCartItems = ({ cartData }) => cartData.cartItems;
@@ -46,5 +49,5 @@ export const selectCartTotal = createSelector([selectCartItems], (cartItems) =>
 		0
 	)
 );
-export const { addToCart, removeCartItem, reduceCartItem } = cartSlice.actions;
+export const { addToCart, removeCartItem, reduceCartItem,clearCart } = cartSlice.actions;
 export default cartSlice.reducer;

@@ -17,3 +17,4 @@ export { default as LoadMore } from "./LoadMore/LoadMore";
 //Individual Product Listing
 export { default as ProductCard } from "./ProductCard/ProductCard";
 export { default as Checkout } from "./Checkout/Checkout";
+export { default as PaymentDetails } from './PaymentDetails/PaymentDetails';

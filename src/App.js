@@ -10,6 +10,7 @@ import {
 	Search,
 	ProductDetails,
 	Cart,
+	Payment,
 } from "./pages";
 import { AdminToolbar } from "./components";
 import { Switch, Route } from "react-router-dom";
@@ -73,6 +74,16 @@ const App = () => {
 						<MainLayout>
 							<Cart />
 						</MainLayout>
+					)}
+				/>
+				<Route
+					path="/payment"
+					render={() => (
+						<WithAuth>
+							<MainLayout>
+								<Payment />
+							</MainLayout>
+						</WithAuth>
 					)}
 				/>
 				<Route
