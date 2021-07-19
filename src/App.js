@@ -11,6 +11,7 @@ import {
 	ProductDetails,
 	Cart,
 	Payment,
+	Order
 } from "./pages";
 import { AdminToolbar } from "./components";
 import { Switch, Route } from "react-router-dom";
@@ -22,6 +23,7 @@ import { useDispatch } from "react-redux";
 import WithAuth from "./HOC/WithAuth";
 import WithAdminAuth from "./HOC/WithAdminAuth";
 import AdminLayout from "./layouts/AdminLayout";
+import DashBoardLayout from "./layouts/DashBoardLayout";
 const App = () => {
 	const dispatch = useDispatch();
 	useEffect(() => {
@@ -102,6 +104,13 @@ const App = () => {
 						</MainLayout>
 					)}
 				/>
+				<Route path='/orders/:orderID' render={() => (
+					<WithAuth>
+						<DashBoardLayout>
+							<Order/>
+						</DashBoardLayout>
+					</WithAuth>
+				)}/>
 				<Route
 					path="/recovery"
 					render={() => (

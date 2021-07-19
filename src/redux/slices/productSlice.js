@@ -22,6 +22,7 @@ const productSlice = createSlice({
 			state.productDetail = action.payload;
 		},
 	},
+	
 });
 
 export const {

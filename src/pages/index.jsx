@@ -8,3 +8,4 @@ export { default as Search } from "./Search/Search";
 export { default as ProductDetails } from "./ProductDetails/ProductDetails";
 export { default as Cart } from "./Cart/Cart";
 export { default as Payment } from './Payment/Payment';
+export { default as Order } from './Order/Order';

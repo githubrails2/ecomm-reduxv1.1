@@ -79,7 +79,7 @@ const Checkout = () => {
 																	</Button>
 																</td>
 																<td>
-																	<Button> onClick={()=>history.push('/payment') }Checkout</Button>
+																	<Button onClick={()=>history.push('/payment') }>Checkout</Button>
 																</td>
 															</tr>
 														</tbody>
