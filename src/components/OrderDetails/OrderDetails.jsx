@@ -51,7 +51,7 @@ const OrderDetails = ({ order }) => {
         return () => {
             dispatch(setOrderDetails({}))
         }
-    },[])
+    },[dispatch])
 	return (
 		<TableContainer>
 			<Table>
